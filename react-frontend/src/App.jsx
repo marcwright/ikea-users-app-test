@@ -28,12 +28,22 @@ function App() {
     });
     const newUser = await response.json();
     setUsers([...users, newUser]);   
-    setNameInputField('') 
   }
 
   useEffect(() => {
     fetchUsers();
   }, [])
+
+  const deleteUser = async (e) => {
+    await fetch(`${hostUrl}api/users/${e.target.dataset.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+ 
+    await fetchUsers();
+  }
 
   return (
     <>
@@ -59,6 +69,9 @@ function App() {
               <tr key={user.id}>
                 <td>{user?.name}</td>
                 <td>{user?.isAdmin?.toString()}</td>
+                <td>
+                  <button data-id={user.id} onClick={deleteUser}>Delete</button>
+                </td>
               </tr>)
             )}
         </tbody>
