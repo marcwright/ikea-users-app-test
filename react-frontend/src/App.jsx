@@ -30,6 +30,19 @@ function App() {
     setUsers([...users, newUser]);   
   }
 
+  const updateUser = async (e) => {
+    const response = await fetch(`${hostUrl}api/users/${e.target.dataset.id}`, {
+      method: "PUT",
+      headers: {
+          "Content-type": "application/json",
+      },
+      body: JSON.stringify({ isAdmin: e.target.checked }),
+      });
+    await response.json();
+    await fetchUsers();
+  };
+
+
   useEffect(() => {
     fetchUsers();
   }, [])
@@ -68,7 +81,13 @@ function App() {
           {users.map((user) => (
               <tr key={user.id}>
                 <td>{user?.name}</td>
-                <td>{user?.isAdmin?.toString()}</td>
+                <td>    
+                  <input
+                    data-id={user.id}
+                    type="checkbox"
+                    checked={user.isAdmin}
+                    onChange={updateUser}
+                /></td>
                 <td>
                   <button data-id={user.id} onClick={deleteUser}>Delete</button>
                 </td>
