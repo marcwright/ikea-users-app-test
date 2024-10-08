@@ -20,7 +20,7 @@ sequelize.sync();
 
 const users = [
     { name: "John Doe",  isAdmin: true },
-    { name: "Jane Smith", isAdmin: false },
+    { name: "Jane Smith", isAdmin: true },
     { name: "Mike Johnson", isAdmin: false  },
     { name: "Sarah Williams", isAdmin: false  },
     { name: "David Brown", isAdmin: false  }
