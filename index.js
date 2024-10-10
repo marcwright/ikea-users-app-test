@@ -5,7 +5,8 @@ const app = express();
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database.sqlite'    
+    storage: './database.sqlite',
+    logging: false    
 });
 
 // Define User model
@@ -72,7 +73,11 @@ app.delete('/api/users/:id', async (req, res) => {
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, async () => {
+server = app.listen(port, async () => {
     console.log(`Server started at ${port}`)
 });
+
+module.exports = { app, server }
+
+
 
